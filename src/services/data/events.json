@@ -1,0 +1,164 @@
+[
+  {
+    "slug": "state-level-review-meeting-2026-07-15",
+    "date": "2026-07-15",
+    "title": "State-level Review Meeting with District Programme Coordinators",
+    "venue": "BSSS State Office, Patna",
+    "about": "The State-level Review Meeting brought together District Programme Coordinators from all 38 districts to review the progress of Ayushman Card enrolment, hospital empanelment and claims settlement under AB-PMJAY and MMJAY. The Chief Executive Officer, BSSS, chaired the session and reviewed district-wise performance against quarterly targets, followed by a discussion on bottlenecks in beneficiary identification and grievance redressal turnaround times.",
+    "gallery": {
+      "photos": [
+        { "title": "CEO, BSSS addressing District Programme Coordinators", "alt": "The CEO of BSSS speaking at a podium in front of seated District Programme Coordinators" },
+        { "title": "District-wise performance review presentation", "alt": "A projector screen showing district-wise enrolment statistics during the review meeting" },
+        { "title": "Open discussion session with district units", "alt": "District Programme Coordinators raising queries during the open discussion segment" }
+      ],
+      "videos": [
+        { "title": "Highlights of the State-level Review Meeting", "duration": "3:12" }
+      ]
+    },
+    "transcript": {
+      "speech": "\"Over the past quarter, Bihar has crossed 1.21 crore Ayushman Card enrolments, a testament to the sustained efforts of our district teams. However, we must accelerate grievance disposal timelines and strengthen coordination with empanelled hospitals to ensure no eligible family is left behind,\" said the CEO, BSSS, in her opening remarks.",
+      "proceedings": "The meeting proceedings covered: (1) District-wise review of Ayushman Card enrolment targets versus achievements, (2) Status update on hospital empanelment applications pending clearance, (3) Review of average grievance redressal turnaround time by district, and (4) Action points assigned to underperforming districts with a follow-up review scheduled for the next quarter."
+    },
+    "news": {
+      "pressReleases": [
+        { "title": "BSSS reviews AB-PMJAY implementation progress across 38 districts", "source": "BSSS Press Release", "date": "2026-07-15" }
+      ],
+      "newspaperCoverage": [
+        { "title": "Bihar health scheme crosses 1.21 crore enrolment mark, says BSSS review", "source": "Hindustan Times, Patna Edition", "date": "2026-07-16" },
+        { "title": "State reviews Ayushman Bharat progress with district coordinators", "source": "Dainik Jagran", "date": "2026-07-16" }
+      ],
+      "socialMedia": [
+        { "platform": "Twitter / X", "text": "Productive review meeting today with District Programme Coordinators from all 38 districts on AB-PMJAY & MMJAY progress. #AyushmanBharatBihar", "date": "2026-07-15" }
+      ]
+    },
+    "documents": [
+      { "title": "Minutes of State-level Review Meeting, 15 July 2026" },
+      { "title": "District-wise Performance Summary (Q1 2026-27)" }
+    ]
+  },
+  {
+    "slug": "ayushman-card-enrolment-camp-2026-07-08",
+    "date": "2026-07-08",
+    "title": "Ayushman Card Enrolment Camp",
+    "venue": "Community Health Centre, Danapur, Patna",
+    "about": "A dedicated Ayushman Card enrolment camp was organised at the Community Health Centre, Danapur, to help eligible families in the block complete their card creation through on-the-spot biometric verification. The camp was supported by trained Common Service Centre operators and local ASHA workers who assisted beneficiaries with document verification and the enrolment process.",
+    "gallery": {
+      "photos": [
+        { "title": "Beneficiaries queued for biometric verification", "alt": "Families waiting in line for biometric verification at the enrolment camp" },
+        { "title": "ASHA worker assisting an elderly beneficiary", "alt": "An ASHA worker helping an elderly beneficiary complete the enrolment form" }
+      ],
+      "videos": []
+    },
+    "transcript": {
+      "speech": "",
+      "proceedings": "The camp operated across two shifts to accommodate working beneficiaries. A total of 412 families were verified on the day, of which 389 Ayushman Cards were successfully generated on-site. Cases requiring further document verification were referred to the block-level BIS desk for follow-up within seven working days."
+    },
+    "news": {
+      "pressReleases": [],
+      "newspaperCoverage": [
+        { "title": "Over 400 families enrolled at Danapur Ayushman Card camp", "source": "Prabhat Khabar", "date": "2026-07-09" }
+      ],
+      "socialMedia": [
+        { "platform": "Facebook", "text": "389 Ayushman Cards created today at our enrolment camp in Danapur, Patna! Thank you to our ASHA workers and CSC operators for their tireless support.", "date": "2026-07-08" }
+      ]
+    },
+    "documents": [
+      { "title": "Camp Enrolment Summary Report, Danapur" }
+    ]
+  },
+  {
+    "slug": "hospital-empanelment-orientation-workshop-2026-06-30",
+    "date": "2026-06-30",
+    "title": "Hospital Empanelment Orientation Workshop",
+    "venue": "Hotel Maurya, Patna",
+    "about": "The orientation workshop was conducted for newly empanelled and prospective private hospitals to familiarise administrators and Pradhan Mantri Arogya Mitras (PMAM) with the Transaction Management System (TMS), pre-authorisation workflows and claims documentation requirements under AB-PMJAY and MMJAY.",
+    "gallery": {
+      "photos": [
+        { "title": "Hospital administrators attending the TMS orientation session", "alt": "Rows of hospital administrators seated at the workshop listening to a presentation on TMS" },
+        { "title": "Live demonstration of the claims portal", "alt": "A trainer demonstrating the claims submission portal on a projector screen" },
+        { "title": "Certificate distribution to empanelled hospitals", "alt": "Hospital representatives receiving empanelment certificates from BSSS officials" },
+        { "title": "Q&A session with PMAM representatives", "alt": "Pradhan Mantri Arogya Mitra representatives asking questions during the workshop" }
+      ],
+      "videos": [
+        { "title": "TMS Walkthrough for Empanelled Hospitals", "duration": "8:47" }
+      ]
+    },
+    "transcript": {
+      "speech": "\"A smooth claims process depends on accurate documentation at the point of pre-authorisation itself. This workshop is designed to reduce claim rejections and speed up reimbursement turnaround for our hospital partners,\" said the Deputy General Manager (Medical), BSSS.",
+      "proceedings": "Session 1 covered TMS login and pre-authorisation request workflow. Session 2 covered Health Benefit Package (HBP) code selection and common documentation errors. Session 3 was a live Q&A with PMAM representatives from 34 hospitals, followed by certificate distribution to 12 newly empanelled hospitals."
+    },
+    "news": {
+      "pressReleases": [
+        { "title": "BSSS conducts TMS orientation for 34 empanelled hospitals", "source": "BSSS Press Release", "date": "2026-06-30" }
+      ],
+      "newspaperCoverage": [
+        { "title": "New hospitals join Ayushman Bharat network after orientation workshop", "source": "The Times of India, Patna", "date": "2026-07-01" }
+      ],
+      "socialMedia": []
+    },
+    "documents": [
+      { "title": "TMS Orientation Workshop - Presentation Deck" },
+      { "title": "List of Newly Empanelled Hospitals, June 2026" },
+      { "title": "Claims Documentation Checklist for Hospitals" }
+    ]
+  },
+  {
+    "slug": "free-health-check-up-camp-2026-06-18",
+    "date": "2026-06-18",
+    "title": "Free Health Check-up Camp",
+    "venue": "Primary Health Centre, Bodh Gaya, Gaya",
+    "about": "A free health check-up camp was organised at the Primary Health Centre, Bodh Gaya, offering general health screening, blood pressure and blood sugar testing to residents, alongside on-the-spot Ayushman Card eligibility verification for families yet to enrol.",
+    "gallery": {
+      "photos": [
+        { "title": "Doctors conducting general health screening", "alt": "Doctors examining patients at the free health check-up camp in Bodh Gaya" },
+        { "title": "Blood sugar and blood pressure testing station", "alt": "A nurse conducting blood pressure testing for a beneficiary" }
+      ],
+      "videos": []
+    },
+    "transcript": {
+      "speech": "",
+      "proceedings": "The camp screened 267 residents over the course of the day. 41 cases were referred for further specialist consultation at the district hospital, and 58 previously unenrolled families were guided through the Ayushman Card eligibility verification process."
+    },
+    "news": {
+      "pressReleases": [],
+      "newspaperCoverage": [
+        { "title": "Free health camp in Bodh Gaya screens over 250 residents", "source": "Dainik Bhaskar", "date": "2026-06-19" }
+      ],
+      "socialMedia": [
+        { "platform": "Twitter / X", "text": "267 residents screened at our free health check-up camp in Bodh Gaya today. Early detection saves lives. #SwasthyaAapkaSaathHamara", "date": "2026-06-18" }
+      ]
+    },
+    "documents": [
+      { "title": "Health Camp Screening Summary, Bodh Gaya" }
+    ]
+  },
+  {
+    "slug": "grievance-redressal-awareness-session-2026-06-05",
+    "date": "2026-06-05",
+    "title": "Grievance Redressal Awareness Session",
+    "venue": "District Collectorate, Muzaffarpur",
+    "about": "The awareness session was held to inform beneficiaries, field functionaries and hospital representatives about the three-tier grievance redressal mechanism under AB-PMJAY, and to demonstrate the online Grievance Portal for filing and tracking complaints.",
+    "gallery": {
+      "photos": [
+        { "title": "District Grievance Redressal Committee members addressing attendees", "alt": "Committee members seated at the front of the hall addressing session attendees" }
+      ],
+      "videos": [
+        { "title": "How to File a Grievance Online - Live Demo", "duration": "5:20" }
+      ]
+    },
+    "transcript": {
+      "speech": "\"Every beneficiary has the right to a timely resolution. This session ensures our field functionaries and hospital partners understand exactly how to guide beneficiaries through the grievance process,\" said the District Programme Coordinator, Muzaffarpur.",
+      "proceedings": "The session covered the structure of the three-tier grievance redressal system (district, state and national level), prescribed resolution timelines for each tier, and a live walkthrough of the online Grievance Portal, including complaint filing, status tracking and escalation procedures."
+    },
+    "news": {
+      "pressReleases": [],
+      "newspaperCoverage": [],
+      "socialMedia": [
+        { "platform": "Facebook", "text": "Great turnout at today's Grievance Redressal Awareness Session in Muzaffarpur. Know your rights as an AB-PMJAY beneficiary!", "date": "2026-06-05" }
+      ]
+    },
+    "documents": [
+      { "title": "Grievance Redressal Mechanism - Citizen Handout" }
+    ]
+  }
+]

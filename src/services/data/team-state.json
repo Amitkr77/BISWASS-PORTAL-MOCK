@@ -1,0 +1,8 @@
+[
+  { "name": "Shri Rajesh Kumar Singh, IAS", "designation": "Chief Executive Officer, BSSS", "department": "Administration", "email": "ceo-biswass@bihar.gov.in", "phone": "0612-2200101" },
+  { "name": "Dr. Anita Sharma", "designation": "State Nodal Officer, AB-PMJAY", "department": "Programme Management", "email": "sno-pmjay@bihar.gov.in", "phone": "0612-2200102" },
+  { "name": "Shri Manoj Prasad", "designation": "General Manager (IT)", "department": "Information Technology", "email": "gm-it@bihar.gov.in", "phone": "0612-2200103" },
+  { "name": "Smt. Kavita Verma", "designation": "General Manager (Finance)", "department": "Finance", "email": "gm-finance@bihar.gov.in", "phone": "0612-2200104" },
+  { "name": "Dr. Sanjeev Kumar", "designation": "Deputy General Manager (Medical)", "department": "Quality Assurance & Empanelment", "email": "dgm-medical@bihar.gov.in", "phone": "0612-2200105" },
+  { "name": "Shri Abhishek Ranjan", "designation": "Manager (Grievance)", "department": "Grievance Redressal", "email": "manager-grievance@bihar.gov.in", "phone": "0612-2200106" }
+]

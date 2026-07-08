@@ -1,0 +1,18 @@
+{
+  "empanelled": [
+    { "name": "Patna Medical College & Hospital", "district": "Patna", "type": "Public", "specialties": "Multi-specialty, Trauma Care" },
+    { "name": "Sri Ram Multispecialty Hospital", "district": "Patna", "type": "Private", "specialties": "Cardiology, Orthopaedics" },
+    { "name": "Anugrah Narayan Magadh Medical College", "district": "Gaya", "type": "Public", "specialties": "Multi-specialty" },
+    { "name": "Gaya Central Hospital", "district": "Gaya", "type": "Private", "specialties": "General Surgery, Gynaecology" },
+    { "name": "Sri Krishna Medical College & Hospital", "district": "Muzaffarpur", "type": "Public", "specialties": "Multi-specialty, Paediatrics" },
+    { "name": "Mata Janki Devi Hospital", "district": "Muzaffarpur", "type": "Private", "specialties": "Nephrology, Urology" },
+    { "name": "Jawaharlal Nehru Medical College Hospital", "district": "Bhagalpur", "type": "Public", "specialties": "Multi-specialty" },
+    { "name": "Darbhanga Medical College & Hospital", "district": "Darbhanga", "type": "Public", "specialties": "Multi-specialty, Oncology" },
+    { "name": "Purnia Sadar Hospital", "district": "Purnia", "type": "Public", "specialties": "General Medicine, Surgery" },
+    { "name": "Nalanda Medical College & Hospital", "district": "Nalanda", "type": "Public", "specialties": "Multi-specialty" }
+  ],
+  "deEmpanelled": [
+    { "name": "Shanti Nursing Home", "district": "Muzaffarpur", "status": "Suspended", "reason": "Non-compliance with quality audit findings (2026)" },
+    { "name": "City Care Hospital", "district": "Patna", "status": "De-empanelled", "reason": "Irregularities detected in claims submission" }
+  ]
+}

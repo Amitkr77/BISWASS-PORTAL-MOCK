@@ -1,0 +1,10 @@
+[
+  { "district": "Patna", "name": "Dr. Ramesh Chandra", "designation": "District Programme Coordinator", "email": "dpc.patna@bihar.gov.in", "phone": "0612-2210001" },
+  { "district": "Gaya", "name": "Smt. Sunita Devi", "designation": "District Programme Coordinator", "email": "dpc.gaya@bihar.gov.in", "phone": "0631-2220002" },
+  { "district": "Muzaffarpur", "name": "Shri Vikash Kumar", "designation": "District Programme Coordinator", "email": "dpc.muzaffarpur@bihar.gov.in", "phone": "0621-2230003" },
+  { "district": "Bhagalpur", "name": "Dr. Neha Singh", "designation": "District Programme Coordinator", "email": "dpc.bhagalpur@bihar.gov.in", "phone": "0641-2240004" },
+  { "district": "Darbhanga", "name": "Shri Ajay Thakur", "designation": "District Programme Coordinator", "email": "dpc.darbhanga@bihar.gov.in", "phone": "06272-240005" },
+  { "district": "Purnia", "name": "Smt. Rekha Kumari", "designation": "District Programme Coordinator", "email": "dpc.purnia@bihar.gov.in", "phone": "06454-240006" },
+  { "district": "Nalanda", "name": "Shri Suresh Paswan", "designation": "District Programme Coordinator", "email": "dpc.nalanda@bihar.gov.in", "phone": "06112-240007" },
+  { "district": "Begusarai", "name": "Dr. Priya Ranjan", "designation": "District Programme Coordinator", "email": "dpc.begusarai@bihar.gov.in", "phone": "06243-240008" }
+]
