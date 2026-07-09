@@ -1,8 +1,8 @@
-export function FormErrorSummary({ show }) {
+export function FormErrorSummary({ show, children }) {
   if (!show) return null;
   return (
     <p className="form-error-summary bg-govt-red/10 border border-govt-red text-govt-red px-4 py-3 rounded-sm text-sm mb-4" role="alert">
-      Please correct the highlighted fields below and resubmit the form.
+      {children || 'Please correct the highlighted fields below and resubmit the form.'}
     </p>
   );
 }

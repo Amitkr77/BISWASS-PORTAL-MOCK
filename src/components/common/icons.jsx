@@ -145,3 +145,60 @@ export function UsersIcon({ className = 'w-4 h-4' }) {
     </svg>
   );
 }
+
+export function UserIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+export function ShieldIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M9.661 2.237a.531.531 0 01.678 0 11.947 11.947 0 007.078 2.749.5.5 0 01.479.425c.069.52.104 1.05.104 1.589 0 5.162-3.26 9.563-7.834 11.256a.48.48 0 01-.332 0C5.26 16.564 2 12.163 2 7c0-.538.035-1.069.104-1.589a.5.5 0 01.48-.425 11.947 11.947 0 007.077-2.75zm4.196 5.954a.75.75 0 00-1.214-.882l-3.236 4.43-1.596-1.596a.75.75 0 10-1.06 1.06l2.25 2.25a.75.75 0 001.137-.089l3.72-5.173z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+export function PlusIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+    </svg>
+  );
+}
+
+export function EditIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path d="M13.586 3.586a2 2 0 012.828 2.828l-.793.793-2.828-2.828.793-.793z" />
+      <path fillRule="evenodd" d="M11.379 5.207L3 13.586V17h3.414l8.379-8.379-3.414-3.414zM4.5 15.5v-1.293l7.879-7.879 1.293 1.293-7.879 7.879H4.5z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+export function TrashIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482 41.03 41.03 0 00-2.365-.298V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clipRule="evenodd" />
+    </svg>
+  );
+}
+
+export function RestoreIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8a7 7 0 1112.32 4.65M3 8V4M3 8h4" />
+    </svg>
+  );
+}
+
+export function LogOutIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7 4H4.5A1.5 1.5 0 003 5.5v9A1.5 1.5 0 004.5 16H7M13 13l4-3-4-3M17 10H7" />
+    </svg>
+  );
+}
