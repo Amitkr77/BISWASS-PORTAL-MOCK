@@ -19,6 +19,16 @@ export default function DesktopNav() {
     <nav ref={navRef} id="main-nav" aria-label="Primary" className="hidden lg:block border-t border-govt-gray-200">
       <ul className="flex items-center">
         {NAV_ITEMS.map((item) => {
+          if (item.href) {
+            return (
+              <li key={item.id}>
+                <Link to={item.href} className="nav-link">
+                  <span>{t(item.labelEn, item.labelHi)}</span>
+                </Link>
+              </li>
+            );
+          }
+
           const isOpen = openId === item.id;
           return (
             <li key={item.id} className={`nav-item relative${isOpen ? ' is-open' : ''}`}>

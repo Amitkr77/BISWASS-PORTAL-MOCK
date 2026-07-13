@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { canAccessRecycleBin } from '../../services/rbac/permissions';
 import ConfirmDialog from '../../components/portal/ConfirmDialog';
 import { RestoreIcon, TrashIcon } from '../../components/common/icons';
 
@@ -9,10 +7,6 @@ export default function RecycleBin() {
   const { currentUser, recycleBinItems, restoreRecord, permanentlyDeleteRecord, getUserName } = useAuth();
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [banner, setBanner] = useState(null);
-
-  if (!canAccessRecycleBin(currentUser)) {
-    return <Navigate to="/portal" replace />;
-  }
 
   const items = recycleBinItems();
 
@@ -30,7 +24,7 @@ export default function RecycleBin() {
   return (
     <div>
       <div>
-        <h1 className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark">Recycle Bin</h1>
+        <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Recycle Bin</h2>
         <p className="text-sm text-govt-gray-600 mt-1">
           Records deleted by users across all modules. Restore them or permanently delete &ndash; this cannot be undone.
         </p>

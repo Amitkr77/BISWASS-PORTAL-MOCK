@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { canManageUsers } from '../../services/rbac/permissions';
 import { AUDIT_ACTIONS, actionLabel } from '../../services/rbac/auditActions';
 import { ShieldIcon, UserIcon } from '../../components/common/icons';
 
@@ -14,7 +12,7 @@ const TONE_CLASSES = {
 };
 
 export default function AuditLog() {
-  const { currentUser, auditLog } = useAuth();
+  const { auditLog } = useAuth();
   const [actionFilter, setActionFilter] = useState('');
 
   const entries = useMemo(
@@ -22,15 +20,11 @@ export default function AuditLog() {
     [auditLog, actionFilter]
   );
 
-  if (!canManageUsers(currentUser)) {
-    return <Navigate to="/portal" replace />;
-  }
-
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark">Audit Log</h1>
+          <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Audit Log</h2>
           <p className="text-sm text-govt-gray-600 mt-1">Who did what, when &ndash; every login, create, update, delete and restore across the portal.</p>
         </div>
         <div className="shrink-0">

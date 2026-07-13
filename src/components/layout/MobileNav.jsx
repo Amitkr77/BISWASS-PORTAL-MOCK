@@ -12,6 +12,19 @@ export default function MobileNav({ onNavigate }) {
   return (
     <div id="mobile-nav" className="lg:hidden border-t border-govt-gray-200 bg-white max-h-[75vh] overflow-y-auto">
       {NAV_ITEMS.map((item) => {
+        if (item.href) {
+          return (
+            <Link
+              key={item.id}
+              to={item.href}
+              onClick={onNavigate}
+              className="block px-4 py-3 border-b border-govt-gray-200 text-sm font-semibold text-govt-gray-900"
+            >
+              {t(item.labelEn, item.labelHi)}
+            </Link>
+          );
+        }
+
         const isOpen = openId === item.id;
         const panelId = `mobile-panel-${item.id}`;
         return (

@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { FIELD_TYPES } from '../../services/rbac/modules';
-import { canManageUsers } from '../../services/rbac/permissions';
 import Modal from '../../components/portal/Modal';
 import { PlusIcon, EditIcon, TrashIcon } from '../../components/common/icons';
 
@@ -190,17 +189,13 @@ export default function ModuleManagement() {
   const [formState, setFormState] = useState(null); // null | { mod: null|obj }
   const [banner, setBanner] = useState(null);
 
-  if (!canManageUsers(currentUser)) {
-    return <Navigate to="/portal" replace />;
-  }
-
   function handleSave(values) {
     if (formState.mod) {
       const res = updateModule(currentUser, formState.mod.id, values);
       setBanner(res.ok ? { type: 'success', text: `"${res.module.label}" module updated.` } : { type: 'error', text: res.error });
     } else {
       const res = createModule(currentUser, values);
-      setBanner(res.ok ? { type: 'success', text: `"${res.module.label}" module created. Assign it to users from User Management.` } : { type: 'error', text: res.error });
+      setBanner(res.ok ? { type: 'success', module: res.module.label } : { type: 'error', text: res.error });
     }
     setFormState(null);
   }
@@ -209,8 +204,8 @@ export default function ModuleManagement() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark">Module Management</h1>
-          <p className="text-sm text-govt-gray-600 mt-1">Create or edit modules, then assign them to users from User Management.</p>
+          <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Modules</h2>
+          <p className="text-sm text-govt-gray-600 mt-1">Create or edit modules, then assign them to users.</p>
         </div>
         <button type="button" onClick={() => setFormState({ mod: null })} className="btn-primary shrink-0">
           <PlusIcon className="w-4 h-4" />
@@ -227,7 +222,13 @@ export default function ModuleManagement() {
           }`}
           role="status"
         >
-          {banner.text}
+          {banner.module ? (
+            <>
+              &ldquo;{banner.module}&rdquo; module created. <Link to="/portal/settings/users" className="font-semibold underline">Assign it to users &rarr;</Link>
+            </>
+          ) : (
+            banner.text
+          )}
         </p>
       )}
 

@@ -63,13 +63,19 @@ function camelKey(text) {
   return parts.map((p, i) => (i === 0 ? p : p[0].toUpperCase() + p.slice(1))).join('') || 'field';
 }
 
+/** Route segments already claimed under /portal/* (the dashboard home and
+ *  the whole /portal/settings/* admin area) - a module can never take one
+ *  of these ids, or it would be permanently unreachable at /portal/:moduleId. */
+export const RESERVED_MODULE_IDS = ['settings', 'users', 'modules', 'recycle-bin', 'audit-log'];
+
 /** Turns a module label into a unique, URL-safe id (used for routes and as
- *  the key into the records map), avoiding collisions with existing modules. */
+ *  the key into the records map), avoiding collisions with existing modules
+ *  and with reserved portal routes. */
 export function makeModuleId(label, existingModules) {
   const base = slugify(label) || 'module';
   let id = base;
   let n = 2;
-  while (existingModules.some((m) => m.id === id)) {
+  while (existingModules.some((m) => m.id === id) || RESERVED_MODULE_IDS.includes(id)) {
     id = `${base}-${n}`;
     n += 1;
   }

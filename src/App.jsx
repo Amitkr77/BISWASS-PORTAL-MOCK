@@ -4,6 +4,7 @@ import MainLayout from './layouts/MainLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import AuthLayout from './layouts/AuthLayout';
 import PortalLayout from './layouts/PortalLayout';
+import SettingsLayout from './layouts/SettingsLayout';
 import { LangProvider } from './hooks/useLang';
 import { FontSizeProvider } from './hooks/useFontSize';
 import { AuthProvider } from './hooks/useAuth';
@@ -43,10 +44,13 @@ export default function App() {
               </Route>
               <Route element={<PortalLayout />}>
                 <Route path="/portal" element={<PortalHome />} />
-                <Route path="/portal/users" element={<UserManagement />} />
-                <Route path="/portal/modules" element={<ModuleManagement />} />
-                <Route path="/portal/recycle-bin" element={<RecycleBin />} />
-                <Route path="/portal/audit-log" element={<AuditLog />} />
+                <Route element={<SettingsLayout />}>
+                  <Route path="/portal/settings" element={<Navigate to="/portal/settings/users" replace />} />
+                  <Route path="/portal/settings/users" element={<UserManagement />} />
+                  <Route path="/portal/settings/modules" element={<ModuleManagement />} />
+                  <Route path="/portal/settings/recycle-bin" element={<RecycleBin />} />
+                  <Route path="/portal/settings/audit-log" element={<AuditLog />} />
+                </Route>
                 <Route path="/portal/:moduleId" element={<ModulePage />} />
               </Route>
               <Route element={<MainLayout />}>

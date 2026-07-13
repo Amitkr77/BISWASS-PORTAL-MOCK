@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { canManageUsers } from '../../services/rbac/permissions';
 import { userTypeLabel } from '../../services/rbac/userLabel';
 import { BIHAR_DISTRICTS } from '../../utils/biharDistricts';
 import Modal from '../../components/portal/Modal';
@@ -167,10 +165,6 @@ export default function UserManagement() {
   const [formState, setFormState] = useState(null);
   const [banner, setBanner] = useState(null);
 
-  if (!canManageUsers(currentUser)) {
-    return <Navigate to="/portal" replace />;
-  }
-
   function handleSave(values) {
     if (formState.user) {
       const patch = {
@@ -201,7 +195,7 @@ export default function UserManagement() {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
         <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark">User Management</h1>
+          <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Users</h2>
           <p className="text-sm text-govt-gray-600 mt-1">Create users, set their state/district scope, and assign the modules they can access.</p>
         </div>
         <button type="button" onClick={() => setFormState({ user: null })} className="btn-primary shrink-0">

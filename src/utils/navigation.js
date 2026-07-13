@@ -4,6 +4,12 @@
  */
 export const NAV_ITEMS = [
   {
+    id: 'home',
+    labelEn: 'Home',
+    labelHi: 'होम',
+    href: '/'
+  },
+  {
     id: 'about',
     labelEn: 'About',
     labelHi: 'हमारे बारे में',
@@ -126,3 +132,12 @@ export const FOOTER_CITIZEN_SERVICES = [
   { labelEn: 'State Team', href: '/contact/state-team' },
   { labelEn: 'District Team', href: '/contact/district-team' }
 ];
+
+/** Flat, searchable list of every page reachable from the primary nav
+ *  (home + every dropdown link + every mega-menu group link), built once
+ *  from NAV_ITEMS so the header search bar has one source of truth. */
+export const SEARCH_INDEX = NAV_ITEMS.flatMap((item) => {
+  if (item.href) return [{ labelEn: item.labelEn, href: item.href }];
+  if (item.groups) return item.groups.flatMap((group) => group.links);
+  return item.links;
+});

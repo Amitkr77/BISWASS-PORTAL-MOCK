@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import UtilityBar from "./UtilityBar";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import HeaderSearch from "./HeaderSearch";
 import { useLang } from "../../hooks/useLang";
 import { useStickyHeader } from "../../hooks/useStickyHeader";
 import { useLockBodyScroll } from "../../hooks/useLockBodyScroll";
@@ -74,6 +75,7 @@ export default function Header() {
           </Link>
 
           <div className="hidden lg:flex items-center gap-3 shrink-0">
+            <HeaderSearch />
             <Link to="/login" className="btn-login">
               <LoginIcon />
               <span>{t("Login", "लॉगिन")}</span>

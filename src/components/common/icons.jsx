@@ -202,3 +202,19 @@ export function LogOutIcon({ className = 'w-4 h-4' }) {
     </svg>
   );
 }
+
+export function FolderIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path d="M2 5.5A1.5 1.5 0 013.5 4h3.379a1.5 1.5 0 011.06.44l1.122 1.12A1.5 1.5 0 0010.12 6H16.5A1.5 1.5 0 0118 7.5v7A1.5 1.5 0 0116.5 16h-13A1.5 1.5 0 012 14.5v-9z" />
+    </svg>
+  );
+}
+
+export function SettingsIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path fillRule="evenodd" d="M8.34 1.804A1 1 0 019.32 1h1.36a1 1 0 01.98.804l.24 1.192a6.958 6.958 0 011.343.776l1.145-.427a1 1 0 011.212.421l.68 1.178a1 1 0 01-.223 1.267l-.937.796a7.03 7.03 0 010 1.551l.937.796a1 1 0 01.223 1.267l-.68 1.178a1 1 0 01-1.212.421l-1.145-.427a6.958 6.958 0 01-1.343.776l-.24 1.192a1 1 0 01-.98.804H9.32a1 1 0 01-.98-.804l-.24-1.192a6.958 6.958 0 01-1.343-.776l-1.145.427a1 1 0 01-1.212-.421l-.68-1.178a1 1 0 01.223-1.267l.937-.796a7.03 7.03 0 010-1.551l-.937-.796a1 1 0 01-.223-1.267l.68-1.178a1 1 0 011.212-.421l1.145.427a6.958 6.958 0 011.343-.776l.24-1.192zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+    </svg>
+  );
+}
