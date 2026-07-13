@@ -11,41 +11,87 @@ const TONE_CLASSES = {
   gray: 'bg-govt-gray-100 text-govt-gray-600',
 };
 
+const EMPTY_FILTERS = { search: '', actor: '', role: '', action: '', from: '', to: '' };
+
 export default function AuditLog() {
   const { auditLog } = useAuth();
-  const [actionFilter, setActionFilter] = useState('');
-  const [dateFilter, setDateFilter] = useState('');
+  const [filters, setFilters] = useState(EMPTY_FILTERS);
 
-  const entries = useMemo(
-    () =>
-      auditLog
-        .filter((e) => !actionFilter || e.action === actionFilter)
-        .filter((e) => !dateFilter || e.timestamp.slice(0, 10) === dateFilter),
-    [auditLog, actionFilter, dateFilter]
+  function setFilter(key, value) {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  }
+
+  const actors = useMemo(
+    () => [...new Set(auditLog.map((e) => e.actorName))].sort(),
+    [auditLog]
   );
+
+  const entries = useMemo(() => {
+    const q = filters.search.trim().toLowerCase();
+    return auditLog
+      .filter((e) => !filters.action || e.action === filters.action)
+      .filter((e) => !filters.actor || e.actorName === filters.actor)
+      .filter((e) => !filters.role || e.actorRole === filters.role)
+      .filter((e) => !filters.from || e.timestamp.slice(0, 10) >= filters.from)
+      .filter((e) => !filters.to || e.timestamp.slice(0, 10) <= filters.to)
+      .filter((e) => !q || e.actorName.toLowerCase().includes(q) || e.summary.toLowerCase().includes(q));
+  }, [auditLog, filters]);
+
+  const hasActiveFilters = Object.values(filters).some(Boolean);
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-        <div>
-          <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Audit Log</h2>
-          <p className="text-sm text-govt-gray-600 mt-1">Who did what, when &ndash; every login, create, update, delete and restore across the portal.</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2 shrink-0">
-          <label htmlFor="audit-date-filter" className="sr-only">Filter by date</label>
+      <div className="mb-2">
+        <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Audit Log</h2>
+        <p className="text-sm text-govt-gray-600 mt-1">Who did what, when &ndash; every login, create, update, delete and restore across the portal.</p>
+      </div>
+
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
+        <div className="lg:col-span-2">
+          <label htmlFor="audit-search" className="form-label">Search</label>
           <input
-            id="audit-date-filter"
-            type="date"
+            id="audit-search"
+            type="search"
             className="form-input"
-            value={dateFilter}
-            onChange={(e) => setDateFilter(e.target.value)}
+            placeholder="Search user or details&hellip;"
+            value={filters.search}
+            onChange={(e) => setFilter('search', e.target.value)}
           />
-          <label htmlFor="audit-filter" className="sr-only">Filter by action</label>
+        </div>
+        <div>
+          <label htmlFor="audit-actor-filter" className="form-label">User</label>
+          <select
+            id="audit-actor-filter"
+            className="form-input"
+            value={filters.actor}
+            onChange={(e) => setFilter('actor', e.target.value)}
+          >
+            <option value="">All Users</option>
+            {actors.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="audit-role-filter" className="form-label">Role</label>
+          <select
+            id="audit-role-filter"
+            className="form-input"
+            value={filters.role}
+            onChange={(e) => setFilter('role', e.target.value)}
+          >
+            <option value="">All Roles</option>
+            <option value="admin">Administrator</option>
+            <option value="user">User</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="audit-filter" className="form-label">Action</label>
           <select
             id="audit-filter"
             className="form-input"
-            value={actionFilter}
-            onChange={(e) => setActionFilter(e.target.value)}
+            value={filters.action}
+            onChange={(e) => setFilter('action', e.target.value)}
           >
             <option value="">All Activity</option>
             {Object.keys(AUDIT_ACTIONS).map((key) => (
@@ -53,9 +99,42 @@ export default function AuditLog() {
             ))}
           </select>
         </div>
+        <div>
+          <label htmlFor="audit-from-filter" className="form-label">From Date</label>
+          <input
+            id="audit-from-filter"
+            type="date"
+            className="form-input"
+            value={filters.from}
+            onChange={(e) => setFilter('from', e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="audit-to-filter" className="form-label">To Date</label>
+          <input
+            id="audit-to-filter"
+            type="date"
+            className="form-input"
+            value={filters.to}
+            onChange={(e) => setFilter('to', e.target.value)}
+          />
+        </div>
       </div>
 
-      <div className="mt-5 overflow-x-auto rounded-xl border border-govt-gray-200 bg-white shadow-sm">
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <p className="text-xs text-govt-gray-500">{entries.length} of {auditLog.length} entries shown</p>
+        {hasActiveFilters && (
+          <button
+            type="button"
+            onClick={() => setFilters(EMPTY_FILTERS)}
+            className="text-sm font-semibold text-govt-blue hover:underline shrink-0"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
+
+      <div className="mt-3 overflow-x-auto rounded-xl border border-govt-gray-200 bg-white shadow-sm">
         <table className="gov-table">
           <caption className="sr-only">Audit log</caption>
           <thead>
@@ -96,7 +175,7 @@ export default function AuditLog() {
             {entries.length === 0 && (
               <tr>
                 <td colSpan={4} className="text-center text-govt-gray-500 py-6">
-                  No activity recorded yet.
+                  {auditLog.length === 0 ? 'No activity recorded yet.' : 'No activity matches these filters.'}
                 </td>
               </tr>
             )}
