@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
 import { userTypeLabel } from '../../services/rbac/userLabel';
-import { BIHAR_DISTRICTS } from '../../utils/biharDistricts';
 import Modal from '../../components/portal/Modal';
 import { PlusIcon, EditIcon, ShieldIcon, UserIcon } from '../../components/common/icons';
 
 function emptyForm() {
-  return { name: '', email: '', password: '', permissions: [], scope: 'state', district: '' };
+  return { name: '', email: '', password: '', permissions: [] };
 }
 
 function UserFormModal({ user, modules, onSave, onClose }) {
@@ -18,8 +17,6 @@ function UserFormModal({ user, modules, onSave, onClose }) {
           email: user.email,
           password: '',
           permissions: [...user.permissions],
-          scope: user.scope || 'state',
-          district: user.district || '',
         }
       : emptyForm()
   );
@@ -42,10 +39,6 @@ function UserFormModal({ user, modules, onSave, onClose }) {
     }
     if (!isEdit && !form.password.trim()) {
       setError('Password is required for a new user.');
-      return;
-    }
-    if (form.scope === 'district' && !form.district) {
-      setError('Select a district for a district user.');
       return;
     }
     setError('');
@@ -95,47 +88,6 @@ function UserFormModal({ user, modules, onSave, onClose }) {
           />
         </div>
         <fieldset>
-          <legend className="form-label">User Type</legend>
-          <div className="flex gap-4 mt-1">
-            <label className="flex items-center gap-1.5 text-sm text-govt-gray-700">
-              <input
-                type="radio"
-                name="user-scope"
-                className="w-4 h-4 border-govt-gray-300 text-govt-blue focus:ring-govt-blue"
-                checked={form.scope === 'state'}
-                onChange={() => setForm((p) => ({ ...p, scope: 'state', district: '' }))}
-              />
-              State User
-            </label>
-            <label className="flex items-center gap-1.5 text-sm text-govt-gray-700">
-              <input
-                type="radio"
-                name="user-scope"
-                className="w-4 h-4 border-govt-gray-300 text-govt-blue focus:ring-govt-blue"
-                checked={form.scope === 'district'}
-                onChange={() => setForm((p) => ({ ...p, scope: 'district' }))}
-              />
-              District User
-            </label>
-          </div>
-          {form.scope === 'district' && (
-            <div className="mt-2">
-              <label htmlFor="user-district" className="form-label text-xs">District <span aria-hidden="true">*</span></label>
-              <select
-                id="user-district"
-                className="form-input"
-                value={form.district}
-                onChange={(e) => setForm((p) => ({ ...p, district: e.target.value }))}
-              >
-                <option value="">-- Select District --</option>
-                {BIHAR_DISTRICTS.map((d) => (
-                  <option key={d} value={d}>{d}</option>
-                ))}
-              </select>
-            </div>
-          )}
-        </fieldset>
-        <fieldset>
           <legend className="form-label">Module Permissions</legend>
           <div className="space-y-2 mt-1">
             {modules.map((mod) => (
@@ -171,8 +123,6 @@ export default function UserManagement() {
         name: values.name.trim(),
         email: values.email.trim(),
         permissions: values.permissions,
-        scope: values.scope,
-        district: values.scope === 'district' ? values.district : null,
       };
       if (values.password.trim()) patch.password = values.password.trim();
       updateUser(currentUser, formState.user.id, patch);
@@ -183,8 +133,6 @@ export default function UserManagement() {
         email: values.email.trim(),
         password: values.password.trim(),
         permissions: values.permissions,
-        scope: values.scope,
-        district: values.district,
       });
       setBanner(res.ok ? { type: 'success', text: 'User created.' } : { type: 'error', text: res.error });
     }
@@ -196,7 +144,7 @@ export default function UserManagement() {
       <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
         <div>
           <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Users</h2>
-          <p className="text-sm text-govt-gray-600 mt-1">Create users, set their state/district scope, and assign the modules they can access.</p>
+          <p className="text-sm text-govt-gray-600 mt-1">Create users and assign the modules they can access.</p>
         </div>
         <button type="button" onClick={() => setFormState({ user: null })} className="btn-primary shrink-0">
           <PlusIcon className="w-4 h-4" />

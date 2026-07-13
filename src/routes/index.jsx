@@ -44,6 +44,7 @@ const RtiAppeal = lazy(() => import('../pages/rti/RtiAppeal'));
 
 const Events = lazy(() => import('../pages/updates/Events'));
 const EventDetail = lazy(() => import('../pages/updates/EventDetail'));
+const Iec = lazy(() => import('../pages/updates/Iec'));
 const PhotoGallery = lazy(() => import('../pages/updates/PhotoGallery'));
 const Spotlight = lazy(() => import('../pages/updates/Spotlight'));
 const SuccessStories = lazy(() => import('../pages/updates/SuccessStories'));
@@ -96,6 +97,7 @@ export const ROUTES = [
 
   { path: '/updates/events', Component: Events },
   { path: '/updates/events/:slug', Component: EventDetail },
+  { path: '/updates/iec', Component: Iec },
   { path: '/updates/photo-gallery', Component: PhotoGallery },
   { path: '/updates/spotlight', Component: Spotlight },
   { path: '/updates/success-stories', Component: SuccessStories },

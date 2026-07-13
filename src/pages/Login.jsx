@@ -53,7 +53,7 @@ export default function Login() {
                 Login
               </h2>
               <p className="mt-1 text-sm text-govt-gray-600">
-                Role-based access for administrators and state/district users.
+                Role-based access for administrators and users.
               </p>
             </div>
 

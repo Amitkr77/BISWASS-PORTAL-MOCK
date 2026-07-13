@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NoticeTicker from "../components/common/NoticeTicker";
 import HeroCarousel from "../components/common/HeroCarousel";
 import ExpandingCardGroup from "../components/common/ExpandingCardGroup";
-import { CheckIcon } from "../components/common/icons";
+import CardCarousel from "../components/common/CardCarousel";
+import { LocationIcon } from "../components/common/icons";
+import { placeholderImageFor } from "../utils/placeholderImage";
 import successStories from "../services/data/success-stories.json";
 import events from "../services/data/events.json";
+import iecItems from "../services/data/iec.json";
 import { getOverviewCard } from "../services/data/dashboardData";
 import { HOSPITAL_TOTALS } from "../services/data/hospitalData";
 import { fmtIN } from "../utils/format";
@@ -118,32 +122,22 @@ const FEATURES = [
   {
     n: "01",
     titleEn: "Rs. 5 Lakh Cover",
-    descEn:
-      "Health cover of up to Rs. 5 lakh per family per year for hospitalisation.",
   },
   {
     n: "02",
     titleEn: "5.5 Crore Beneficiaries",
-    descEn:
-      "One of the world’s largest health assurance schemes by beneficiary count.",
   },
   {
     n: "03",
     titleEn: "State Flexibility",
-    descEn:
-      "Bihar extends additional coverage through the state-funded MMJAY scheme.",
   },
   {
     n: "04",
     titleEn: "Portability",
-    descEn:
-      "Beneficiaries can avail cashless treatment at empanelled hospitals anywhere in India.",
   },
   {
     n: "05",
     titleEn: "Entitlement-Based",
-    descEn:
-      "No cap on family size, age or gender for eligible beneficiary households.",
   },
 ];
 
@@ -237,9 +231,130 @@ function formatEventDate(iso) {
   return { day: String(day).padStart(2, "0"), month: MONTH_ABBR[month - 1] };
 }
 
-const HOME_EVENTS = events.slice(0, 5);
-// Rendered twice back-to-back so the CSS translateY(-50%) loop is seamless.
-const EVENTS_LOOP = [...HOME_EVENTS, ...HOME_EVENTS];
+const HOME_EVENTS = events.slice(0, 6);
+
+function EventCard(event, i) {
+  const { day, month } = formatEventDate(event.date);
+  return (
+    <Link
+      to={`/updates/events/${event.slug}`}
+      className="group relative block h-56 rounded-xl overflow-hidden border border-govt-gray-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    >
+      <img
+        src={placeholderImageFor(i, 2)}
+        loading="lazy"
+        width={400}
+        height={300}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
+        aria-hidden="true"
+      />
+      <div className="absolute top-3 left-3 flex flex-col items-center justify-center w-12 h-12 rounded-lg bg-white shadow-md">
+        <span className="text-base font-heading font-extrabold text-govt-blue-dark leading-none tabular-nums">
+          {day}
+        </span>
+        <span className="text-[9px] font-bold uppercase tracking-widest text-govt-blue mt-0.5">
+          {month}
+        </span>
+      </div>
+      <div className="absolute inset-x-0 bottom-0 p-4">
+        <h3 className="font-heading font-bold text-white text-base leading-snug line-clamp-2">
+          {event.title}
+        </h3>
+        <p className="text-white/85 text-xs mt-1.5 flex items-start gap-1">
+          <LocationIcon className="w-3.5 h-3.5 shrink-0 mt-0.5 text-white/70" />
+          <span className="truncate">{event.venue}</span>
+        </p>
+      </div>
+    </Link>
+  );
+}
+
+function IecShowcase({ items }) {
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return undefined;
+    const timer = window.setInterval(
+      () => setIndex((i) => (i + 1) % items.length),
+      3500,
+    );
+    return () => window.clearInterval(timer);
+  }, [paused, items.length]);
+
+  const item = items[index];
+
+  return (
+    <div
+      className="group relative h-full w-full overflow-hidden rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      {items.map((it, i) => (
+        <img
+          key={it.slug}
+          src={placeholderImageFor(i, 1)}
+          alt=""
+          loading={i === 0 ? "eager" : "lazy"}
+          width={400}
+          height={300}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === index ? "opacity-100" : "opacity-0"}`}
+        />
+      ))}
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"
+        aria-hidden="true"
+      />
+
+      <div className="relative h-full flex flex-col justify-end p-5 sm:p-6">
+        <span className="inline-flex w-fit items-center bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-sm mb-2 ring-1 ring-white/30">
+          IEC Corner
+        </span>
+        <span className="text-govt-saffron text-xs font-bold uppercase tracking-wide">
+          {item.category}
+        </span>
+        <h3 className="font-heading font-bold text-white text-xl sm:text-2xl mt-1 leading-snug line-clamp-2">
+          {item.title}
+        </h3>
+        <p className="text-white/85 text-sm mt-1.5 max-w-xl line-clamp-2">
+          {item.description}
+        </p>
+
+        <div className="flex items-center justify-between mt-4">
+          <div
+            className="flex gap-1.5"
+            role="tablist"
+            aria-label="IEC materials"
+          >
+            {items.map((it, i) => (
+              <button
+                key={it.slug}
+                type="button"
+                role="tab"
+                aria-selected={i === index}
+                aria-label={`Show ${it.title}`}
+                onClick={() => setIndex(i)}
+                className={`w-2 h-2 rounded-full transition-colors ${i === index ? "bg-govt-saffron" : "bg-white/40 hover:bg-white/70"}`}
+              />
+            ))}
+          </div>
+          <Link
+            to="/updates/iec"
+            className="text-xs font-semibold text-white hover:text-govt-saffron underline underline-offset-2 shrink-0"
+          >
+            Browse All &rarr;
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function SpotlightCard(item, isActive) {
   const accent = SPOTLIGHT_ACCENTS[item.accent];
@@ -286,14 +401,6 @@ function SpotlightCard(item, isActive) {
   );
 }
 
-const BENEFITS_CHECKLIST = [
-  "Cashless and paperless access to services",
-  "Coverage for pre-existing diseases from day one",
-  "Covers 3 days pre-hospitalisation and 15 days post-hospitalisation expenses",
-  "No restriction on family size or age",
-  "Benefits are portable across India",
-];
-
 export default function Home() {
   return (
     <>
@@ -304,88 +411,181 @@ export default function Home() {
       <NoticeTicker />
       <HeroCarousel />
 
-      <section className="bg-govt-blue-light border-y border-govt-blue/10">
-        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-10 grid lg:grid-cols-3 gap-6 sm:gap-8 items-start">
-          <div className="lg:col-span-2">
-            <h2 className="text-lg sm:text-2xl font-heading font-bold text-govt-blue-dark mb-2 sm:mb-3">
-              About Ayushman Bharat
-            </h2>
-            <p className="text-sm sm:text-base text-govt-gray-700 leading-relaxed">
-              Ayushman Bharat &ndash; Pradhan Mantri Jan Arogya Yojana
-              (AB-PMJAY) is the flagship health assurance scheme of the
-              Government of India, providing a health cover of Rs. 5 lakh per
-              family per year for secondary and tertiary care hospitalisation.
-              In Bihar, the scheme is implemented by the Bihar Swasthya Suraksha
-              Samiti (BSSS) in convergence with the state-funded Mukhyamantri
-              Jan Arogya Yojana (MMJAY), extending cashless and paperless
-              treatment to crores of eligible families across the state.
-            </p>
+      <section
+        className="bg-white border-b border-govt-gray-200"
+        aria-labelledby="events-heading"
+      >
+        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-10">
+          <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-widest text-govt-saffron-dark mb-1">
+                What&rsquo;s On
+              </p>
+              <h2
+                id="events-heading"
+                className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark"
+              >
+                Upcoming Events
+              </h2>
+            </div>
             <Link
-              to="/about/about-ayushman-bharat"
-              className="btn-primary mt-4 sm:mt-5"
+              to="/updates/events"
+              className="group inline-flex items-center gap-1.5 text-sm font-semibold text-govt-blue hover:text-govt-blue-dark transition-colors shrink-0"
             >
-              Read More
+              View All
+              <svg
+                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.21 14.77a.75.75 0 010-1.06L10.94 10 7.21 6.29a.75.75 0 111.06-1.06l4.25 4.24a.75.75 0 010 1.06l-4.25 4.24a.75.75 0 01-1.06 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            {STAT_TILES.map((tile) => (
-              <div key={tile.labelEn} className="stat-tile">
-                <p className="text-xl sm:text-3xl font-heading font-bold text-govt-blue-dark">
-                  {tile.value}
-                </p>
-                <p className="text-xs text-govt-gray-600 mt-1">
-                  {tile.labelEn}
-                </p>
-              </div>
-            ))}
+
+          <CardCarousel
+            items={HOME_EVENTS}
+            getKey={(e) => e.slug}
+            renderItem={EventCard}
+          />
+        </div>
+      </section>
+
+      <section className="bg-govt-blue-light border-y border-govt-blue/10">
+        <div className="max-w-7xl mx-auto px-4 py-8 sm:py-10">
+          <div className="grid lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+            <div className="lg:col-span-2">
+              <h2 className="text-lg sm:text-2xl font-heading font-bold text-govt-blue-dark mb-2 sm:mb-3">
+                About Ayushman Bharat
+              </h2>
+              <p className="text-sm sm:text-base text-govt-gray-700 leading-relaxed">
+                Ayushman Bharat &ndash; Pradhan Mantri Jan Arogya Yojana
+                (AB-PMJAY) is the flagship health assurance scheme of the
+                Government of India, providing a health cover of Rs. 5 lakh per
+                family per year for secondary and tertiary care hospitalisation.
+                In Bihar, the scheme is implemented by the Bihar Swasthya
+                Suraksha Samiti (BSSS) in convergence with the state-funded
+                Mukhyamantri Jan Arogya Yojana (MMJAY), extending cashless and
+                paperless treatment to crores of eligible families across the
+                state.
+              </p>
+              <Link
+                to="/about/about-ayushman-bharat"
+                className="btn-primary mt-4 sm:mt-5"
+              >
+                Read More
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {STAT_TILES.map((tile) => (
+                <div key={tile.labelEn} className="stat-tile">
+                  <p className="text-xl sm:text-3xl font-heading font-bold text-govt-blue-dark">
+                    {tile.value}
+                  </p>
+                  <p className="text-xs text-govt-gray-600 mt-1">
+                    {tile.labelEn}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
+
+          {/* <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-govt-blue/10">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-heading font-bold text-govt-blue-dark">
+                Key Features
+              </h3>
+              <Link
+                to="/about/features"
+                className="text-sm font-semibold text-govt-blue hover:underline shrink-0"
+              >
+                View All &rarr;
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4">
+              {FEATURES.map((f) => (
+                <Link
+                  key={f.n}
+                  to="/about/features"
+                  className="group bg-white rounded-xl border border-govt-gray-200 p-4 hover:-translate-y-1 hover:shadow-lg hover:border-govt-blue/30 transition-all duration-300"
+                >
+                  <span className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-govt-saffron/10 text-govt-saffron-dark group-hover:bg-govt-saffron group-hover:text-white font-heading font-extrabold text-sm transition-colors">
+                    {f.n}
+                  </span>
+                  <p className="text-sm font-semibold text-govt-blue-dark mt-3 leading-snug">
+                    {f.titleEn}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div> */}
         </div>
       </section>
 
       <section
-        className="max-w-7xl mx-auto px-4 py-10"
-        aria-labelledby="features-heading"
+        className="max-w-7xl mx-auto px-4 py-8 sm:py-10"
+        aria-labelledby="quick-services-heading"
       >
-        <h2
-          id="features-heading"
-          className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark mb-5"
-        >
-          Ayushman Features
-        </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          {FEATURES.map((f) => (
-            <div key={f.n} className="info-card">
-              <span className="text-govt-saffron-dark font-heading font-extrabold text-2xl">
-                {f.n}
+        <div className="max-w-2xl mx-auto mb-6 text-center">
+          <h2
+            id="quick-services-heading"
+            className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark"
+          >
+            What would you like to do?
+          </h2>
+          <p className="text-sm sm:text-base text-govt-gray-600 mt-2">
+            Quick access to the services beneficiaries use most.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {QUICK_SERVICES.map((service) => (
+            <Link
+              key={service.href}
+              to={service.href}
+              className="group relative flex flex-col items-start bg-white rounded-xl border border-govt-gray-200 shadow-sm p-5 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-govt-blue/30"
+            >
+              <span
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} text-white shadow-md shrink-0 mb-4`}
+              >
+                {service.icon}
               </span>
-              <h3 className="font-semibold text-govt-blue-dark mt-2">
-                {f.titleEn}
+              <h3 className="font-heading font-bold text-govt-blue-dark">
+                {service.titleEn}
               </h3>
-              <p className="text-sm text-govt-gray-600 mt-1">{f.descEn}</p>
-            </div>
+              <p className="text-sm text-govt-gray-600 mt-1.5">
+                {service.descEn}
+              </p>
+              <span className="inline-flex items-center gap-1 text-xs font-semibold text-govt-blue mt-4 group-hover:gap-1.5 transition-all">
+                Get Started
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.21 14.77a.75.75 0 010-1.06L10.94 10 7.21 6.29a.75.75 0 111.06-1.06l4.25 4.24a.75.75 0 010 1.06l-4.25 4.24a.75.75 0 01-1.06 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </Link>
           ))}
         </div>
-        {/* <div className="bg-govt-green/5 border border-govt-green/20 rounded-sm p-5">
-          <h3 className="font-semibold text-govt-blue-dark mb-3">
-            Benefits Checklist
-          </h3>
-          <ul className="grid sm:grid-cols-2 gap-3">
-            {BENEFITS_CHECKLIST.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <CheckIcon />
-                <span className="text-sm text-govt-gray-700">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div> */}
       </section>
 
       <section
         className="bg-govt-gray-50 border-b border-govt-gray-200"
         aria-labelledby="dashboard-heading"
       >
-        <div className="max-w-7xl mx-auto px-4 py-10 sm:py-12">
-          <div className="relative bg-white rounded-xl border border-govt-gray-200 shadow-sm p-5 sm:p-8 overflow-hidden">
+        <div className="max-w-7xl mx-auto ">
+          <div className="relative  p-5 sm:p-8 overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
               <div>
                 <h2
@@ -611,207 +811,93 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        className="max-w-7xl mx-auto px-4 py-10 sm:py-12"
-        aria-labelledby="quick-services-heading"
-      >
-        <div className="grid lg:grid-cols-12 gap-8 items-stretch">
-          <div className="lg:col-span-8">
-            <div className="mb-8">
-              <h2
-                id="quick-services-heading"
-                className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark"
-              >
-                What would you like to do?
-              </h2>
-              <p className="text-sm sm:text-base text-govt-gray-600 mt-2">
-                Quick access to the services beneficiaries use most.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-5">
-              {QUICK_SERVICES.map((service) => (
-                <Link
-                  key={service.href}
-                  to={service.href}
-                  className="group relative flex flex-col items-start bg-white rounded-xl border border-govt-gray-200 shadow-sm p-5 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-govt-blue/30"
+      <section className="max-w-7xl mx-auto px-4 py-8 sm:py-10">
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div aria-labelledby="iec-heading">
+            <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-govt-saffron-dark mb-1">
+                  Outreach Material
+                </p>
+                <h2
+                  id="iec-heading"
+                  className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark"
                 >
-                  <span
-                    className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${service.gradient} text-white shadow-md shrink-0 mb-4`}
+                  IEC Corner
+                </h2>
+              </div>
+              <Link
+                to="/updates/iec"
+                className="text-sm font-semibold text-govt-blue hover:underline shrink-0"
+              >
+                View All &rarr;
+              </Link>
+            </div>
+            <div className="h-64 sm:h-80">
+              <IecShowcase items={iecItems} />
+            </div>
+          </div>
+
+          <div aria-labelledby="success-stories-heading">
+            <div className="flex flex-wrap items-end justify-between gap-3 mb-5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-widest text-govt-saffron-dark mb-1">
+                  Real Beneficiaries
+                </p>
+                <h2
+                  id="success-stories-heading"
+                  className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark"
+                >
+                  Success Stories
+                </h2>
+              </div>
+              <Link
+                to="/updates/success-stories"
+                className="text-sm font-semibold text-govt-blue hover:underline shrink-0"
+              >
+                View All &rarr;
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 grid-rows-2 gap-3 h-64 sm:h-80">
+              {successStories.map((story, i) => (
+                <article
+                  key={story.name}
+                  className={`group relative overflow-hidden rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300 ${i === 2 ? "col-span-2" : ""}`}
+                >
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br ${STORY_GRADIENTS[i % STORY_GRADIENTS.length]} transition-transform duration-500 ease-out group-hover:scale-105`}
+                    role="img"
+                    aria-label={`Illustrative photo representing the story of ${story.name}`}
+                  />
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="absolute w-16 h-16 -right-2 -bottom-2 text-white/15 pointer-events-none"
+                    aria-hidden="true"
                   >
-                    {service.icon}
-                  </span>
-                  <h3 className="font-heading font-bold text-govt-blue-dark">
-                    {service.titleEn}
-                  </h3>
-                  <p className="text-sm text-govt-gray-600 mt-1.5">
-                    {service.descEn}
-                  </p>
-                  <span className="inline-flex items-center gap-1 text-xs font-semibold text-govt-blue mt-4 group-hover:gap-1.5 transition-all">
-                    Get Started
-                    <svg
-                      className="w-3.5 h-3.5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M7.21 14.77a.75.75 0 010-1.06L10.94 10 7.21 6.29a.75.75 0 111.06-1.06l4.25 4.24a.75.75 0 010 1.06l-4.25 4.24a.75.75 0 01-1.06 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </Link>
+                    <path d="M10 2h4v8h8v4h-8v8h-4v-8H2v-4h8V2z" />
+                  </svg>
+
+                  <div className="relative h-full flex flex-col justify-end p-3 sm:p-4 bg-gradient-to-t from-black/80 via-black/35 to-transparent">
+                    <span className="inline-flex w-fit items-center bg-white/15 backdrop-blur-sm text-white text-[9px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-sm mb-1 ring-1 ring-white/30">
+                      Success Story
+                    </span>
+                    <h3 className="font-heading font-bold text-white text-sm line-clamp-1">
+                      {story.title}
+                    </h3>
+                    <p className="text-white/70 text-[11px] mt-1">
+                      {story.name} &middot; {story.date}
+                    </p>
+                  </div>
+                </article>
               ))}
             </div>
           </div>
-
-          <div className="lg:col-span-4" aria-labelledby="events-heading">
-            <div className="h-full flex flex-col rounded-xl border border-govt-gray-200 bg-white shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-govt-gray-100">
-                <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-govt-saffron-dark mb-1">
-                    What&rsquo;s On
-                  </p>
-                  <h2
-                    id="events-heading"
-                    className="font-heading font-bold text-govt-blue-dark"
-                  >
-                    Upcoming Events
-                  </h2>
-                </div>
-                <Link
-                  to="/updates/events"
-                  className="group inline-flex items-center gap-1 text-xs font-semibold text-govt-blue hover:text-govt-blue-dark transition-colors shrink-0"
-                >
-                  View All
-                  <svg
-                    className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.21 14.77a.75.75 0 010-1.06L10.94 10 7.21 6.29a.75.75 0 111.06-1.06l4.25 4.24a.75.75 0 010 1.06l-4.25 4.24a.75.75 0 01-1.06 0z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-              </div>
-              <div className="relative flex-1 min-h-0 overflow-hidden">
-                <ul className="events-track absolute inset-x-0 top-0 divide-y divide-govt-gray-100 hover:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
-                  {EVENTS_LOOP.map((event, i) => {
-                    const { day, month } = formatEventDate(event.date);
-                    return (
-                      <li key={`${event.slug}-${i}`}>
-                        <Link
-                          to={`/updates/events/${event.slug}`}
-                          className="group flex items-start gap-3 px-5 py-4 hover:bg-govt-blue-light/50 transition-colors"
-                        >
-                          <div className="inline-flex flex-col items-center justify-center w-11 h-11 rounded-lg bg-govt-blue-light border border-govt-blue/15 group-hover:border-govt-blue/30 transition-colors shrink-0">
-                            <span className="text-sm font-heading font-extrabold text-govt-blue-dark leading-none tabular-nums">
-                              {day}
-                            </span>
-                            <span className="text-[8px] font-bold uppercase tracking-widest text-govt-blue mt-0.5">
-                              {month}
-                            </span>
-                          </div>
-                          <div className="min-w-0">
-                            <p className="text-sm font-semibold text-govt-gray-900 group-hover:text-govt-blue transition-colors line-clamp-2">
-                              {event.title}
-                            </p>
-                            <p className="text-xs text-govt-gray-500 mt-1 flex items-start gap-1">
-                              <svg
-                                className="w-3 h-3 shrink-0 mt-0.5 text-govt-gray-400"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.002zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                              <span className="truncate">{event.venue}</span>
-                            </p>
-                          </div>
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl sm:text-2xl font-heading font-bold text-govt-blue-dark">
-            Success Stories
-          </h2>
-          <Link
-            to="/updates/success-stories"
-            className="text-sm font-semibold text-govt-blue hover:underline"
-          >
-            View All &rarr;
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-5">
-          {successStories.map((story, i) => {
-            const featured = i === 0;
-            return (
-              <article
-                key={story.name}
-                className={`group relative overflow-hidden rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300 min-h-[16rem] ${
-                  featured
-                    ? "sm:col-span-2 lg:col-span-2 lg:row-span-2 sm:min-h-[20rem] lg:min-h-0"
-                    : ""
-                }`}
-              >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${STORY_GRADIENTS[i % STORY_GRADIENTS.length]} transition-transform duration-500 ease-out group-hover:scale-105`}
-                  role="img"
-                  aria-label={`Illustrative photo representing the story of ${story.name}`}
-                />
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className={`absolute text-white/15 pointer-events-none ${featured ? "w-40 h-40 -right-6 -bottom-6" : "w-24 h-24 -right-3 -bottom-3"}`}
-                  aria-hidden="true"
-                >
-                  <path d="M10 2h4v8h8v4h-8v8h-4v-8H2v-4h8V2z" />
-                </svg>
-
-                <div className="relative h-full flex flex-col justify-end p-5 sm:p-6 bg-gradient-to-t from-black/80 via-black/35 to-transparent">
-                  <span className="inline-flex w-fit items-center bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wide px-2 py-1 rounded-sm mb-2 ring-1 ring-white/30">
-                    {featured ? "Featured Story" : "Success Story"}
-                  </span>
-                  <h3
-                    className={`font-heading font-bold text-white ${featured ? "text-xl sm:text-2xl" : "text-base"}`}
-                  >
-                    {story.title}
-                  </h3>
-                  <p
-                    className={`text-white/85 mt-1.5 ${featured ? "text-sm sm:text-base max-w-xl" : "text-xs line-clamp-2"}`}
-                  >
-                    {story.excerpt}
-                  </p>
-                  <p className="text-white/70 text-xs mt-3">
-                    {story.name} &middot; {story.date}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
         </div>
       </section>
 
       <section
-        className="max-w-7xl mx-auto px-4 py-10"
+        className="max-w-7xl mx-auto px-4 py-8 sm:py-10"
         aria-labelledby="spotlight-heading"
       >
         <div className="flex items-end justify-between mb-6">

@@ -9,8 +9,6 @@ export const SEED_USERS = [
     password: 'admin123',
     role: 'admin',
     permissions: [],
-    scope: null,
-    district: null,
     active: true,
   },
   {
@@ -20,8 +18,6 @@ export const SEED_USERS = [
     password: 'user123',
     role: 'user',
     permissions: ['notices'],
-    scope: 'state',
-    district: null,
     active: true,
   },
   {
@@ -31,8 +27,6 @@ export const SEED_USERS = [
     password: 'user123',
     role: 'user',
     permissions: ['events'],
-    scope: 'district',
-    district: 'Muzaffarpur',
     active: true,
   },
 ];

@@ -145,15 +145,6 @@
     100% { transform: translateX(-50%); }
   }
 
-  /* Home events sidebar auto-scroll */
-  .events-track {
-    animation: events-scroll 20s linear infinite;
-  }
-  @keyframes events-scroll {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-50%); }
-  }
-
   /* Form fields */
   .form-label {
     @apply block text-sm font-semibold text-govt-gray-900 mb-1;

@@ -14,10 +14,14 @@ const TONE_CLASSES = {
 export default function AuditLog() {
   const { auditLog } = useAuth();
   const [actionFilter, setActionFilter] = useState('');
+  const [dateFilter, setDateFilter] = useState('');
 
   const entries = useMemo(
-    () => (actionFilter ? auditLog.filter((e) => e.action === actionFilter) : auditLog),
-    [auditLog, actionFilter]
+    () =>
+      auditLog
+        .filter((e) => !actionFilter || e.action === actionFilter)
+        .filter((e) => !dateFilter || e.timestamp.slice(0, 10) === dateFilter),
+    [auditLog, actionFilter, dateFilter]
   );
 
   return (
@@ -27,7 +31,15 @@ export default function AuditLog() {
           <h2 className="text-lg font-heading font-bold text-govt-blue-dark">Audit Log</h2>
           <p className="text-sm text-govt-gray-600 mt-1">Who did what, when &ndash; every login, create, update, delete and restore across the portal.</p>
         </div>
-        <div className="shrink-0">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <label htmlFor="audit-date-filter" className="sr-only">Filter by date</label>
+          <input
+            id="audit-date-filter"
+            type="date"
+            className="form-input"
+            value={dateFilter}
+            onChange={(e) => setDateFilter(e.target.value)}
+          />
           <label htmlFor="audit-filter" className="sr-only">Filter by action</label>
           <select
             id="audit-filter"

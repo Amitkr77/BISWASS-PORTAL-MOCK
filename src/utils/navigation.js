@@ -75,6 +75,7 @@ export const NAV_ITEMS = [
       { labelEn: 'Success Stories', href: '/updates/success-stories' },
       { labelEn: 'Spotlight', href: '/updates/spotlight' },
       { labelEn: 'Events', href: '/updates/events' },
+      { labelEn: 'IEC', href: '/updates/iec' },
       { labelEn: 'Photo Gallery', href: '/updates/photo-gallery' },
       { labelEn: 'Video Gallery', href: '/updates/video-gallery' }
     ]

@@ -78,7 +78,7 @@ export function AuthProvider({ children }) {
 
   // --- User management (admin only in the UI; not re-enforced here since
   // this is a frontend-only demo with no real security boundary) ---
-  const createUser = useCallback((actor, { name, email, password, permissions, scope, district }) => {
+  const createUser = useCallback((actor, { name, email, password, permissions }) => {
     const normalized = email.trim().toLowerCase();
     let error = null;
     let created = null;
@@ -94,13 +94,11 @@ export function AuthProvider({ children }) {
         password,
         role: 'user',
         permissions: [...permissions],
-        scope,
-        district: scope === 'district' ? district : null,
         active: true,
       };
       return [...prev, created];
     });
-    if (created) logActivity(actor, 'create_user', `${actor.name} created ${created.scope} user "${created.name}" (${created.email}).`);
+    if (created) logActivity(actor, 'create_user', `${actor.name} created user "${created.name}" (${created.email}).`);
     return { ok: !error, error };
   }, [logActivity]);
 

@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "ayushman-bharat-benefits-poster",
+    "title": "Ayushman Bharat – Rs. 5 Lakh Cover Benefits Poster",
+    "category": "Poster",
+    "date": "2026-06-10",
+    "description": "A print-ready poster explaining the Rs. 5 lakh per family annual health cover for display at PHCs, CHCs and empanelled hospitals."
+  },
+  {
+    "slug": "ayushman-card-creation-pamphlet",
+    "title": "How to Create Your Ayushman Card – Citizen Pamphlet",
+    "category": "Pamphlet",
+    "date": "2026-06-02",
+    "description": "Step-by-step pamphlet for beneficiaries on creating an Ayushman Card via CSC, empanelled hospitals or the mobile app."
+  },
+  {
+    "slug": "eligibility-criteria-infographic",
+    "title": "Am I Eligible? – Eligibility Criteria Infographic",
+    "category": "Infographic",
+    "date": "2026-05-20",
+    "description": "A visual infographic summarising SECC 2011 eligibility criteria for AB-PMJAY and MMJAY in Bihar."
+  },
+  {
+    "slug": "cashless-treatment-process-flyer",
+    "title": "Cashless Treatment Process – Hospital Flyer",
+    "category": "Flyer",
+    "date": "2026-05-05",
+    "description": "Explains the cashless, paperless treatment process at empanelled hospitals, from admission to discharge."
+  },
+  {
+    "slug": "grievance-redressal-booklet",
+    "title": "Grievance Redressal Mechanism – Beneficiary Booklet",
+    "category": "Booklet",
+    "date": "2026-04-18",
+    "description": "A detailed booklet on how beneficiaries can raise and track grievances related to treatment or claims."
+  },
+  {
+    "slug": "asha-outreach-field-kit",
+    "title": "ASHA Worker Field Outreach Kit",
+    "category": "Field Kit",
+    "date": "2026-04-01",
+    "description": "Talking points and visual aids for ASHA workers conducting door-to-door Ayushman Card enrolment awareness."
+  }
+]
